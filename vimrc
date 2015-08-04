@@ -15,6 +15,8 @@ set tabstop=2
 set virtualedit=all
 set linespace=2
 set laststatus=2
+set foldmethod=syntax
+set foldlevel=20
 
 " Special chars
 set listchars=tab:»\ ,trail:·
