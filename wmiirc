@@ -240,10 +240,6 @@ Key XF86AudioRaiseVolume
 	amixer -D pulse sset Master 5%+
 Key XF86AudioLowerVolume
 	amixer -D pulse sset Master 5%-
-	
-KeyGoup Session keys
-Key $MODKEY-Shift-l
-	dm-tool lock
 
 KeyGroup Tag actions
 Key $MODKEY-t       # Change to another tag
