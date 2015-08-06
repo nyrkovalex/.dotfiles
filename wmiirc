@@ -17,7 +17,7 @@ noticebar=/rbar/!notice
 
 # Colors tuples: "<text> <background> <border>"
 export WMII_NORMCOLORS='#839496 #073642 #002b36'
-export WMII_FOCUSCOLORS='#073642 #cb4b16 #002b36'
+export WMII_FOCUSCOLORS='#fdf6e3 #cb4b16 #002b36'
 
 export WMII_BACKGROUND='#333333'
 export WMII_FONT='-*-terminus-medium-r-*-*-16-*-*-*-*-*-*-*'
