@@ -23,7 +23,7 @@ set listchars=tab:»\ ,trail:·
 set list
 
 "Indent by parenthesis
-set cino=(0
+" set cino=(0
 
 set cursorline
 set nowrap
@@ -31,11 +31,11 @@ set number
 set ruler
 set splitright
 
-set statusline=»\ %{getcwd()}%=[%{fugitive#head(8)}]\ %l:%v\ 
+set statusline=»\ %{getcwd()}%=[%{fugitive#head(8)}]\ %l:%v
 set omnifunc=syntaxcomplete#Complete
 
 highlight CursorLine cterm=None ctermbg=0
-highlight StatusLine cterm=None ctermbg=0
+highlight StatusLineNC cterm=None ctermbg=0
 highlight SpecialKey cterm=None ctermbg=None ctermfg=0
 
 "Move lines
@@ -51,14 +51,14 @@ map <S-Insert> "+gP
 map <C-Insert> "+y
 
 " Strip trailing whitespaces
-autocmd BufWritePre *.py :%s/\s\+$//e
+autocmd BufWritePre * :%s/\s\+$//e
 
 "Timestamp shortcuts
 nnoremap <A-t> a<C-R>=strftime("%d/%m/%y %H:%M:%S")<CR><Esc>
 inoremap <A-t> <C-R>=strftime("%d/%m/%y %H:%M:%S")<CR>
 
 " Command-T excludes
-set wildignore+=**/node_modules/**,**/bower_components/**,**/ace/**
+set wildignore+=**/node_modules/**,**/bower_components/**,**/ace/**,**/public/**
 
 " Easy grep exludes
 let g:EasyGrepFilesToExclude=".svn,.git,**/node_modules/**,**/bower_components/**"
