@@ -9,11 +9,11 @@ install_bundles () {
     cd ~/.vim/bundle
     git clone git@github.com:scrooloose/syntastic.git
     git clone git@github.com:terryma/vim-multiple-cursors.git
-    git clone git@github.com:vim-scripts/EasyGrep.git
     git clone git@github.com:tpope/vim-fugitive.git
     git clone git://github.com/altercation/vim-colors-solarized.git
-		git clone https://github.com/airblade/vim-gitgutter
-		git clone git@github.com:mileszs/ack.vim.git
+    git clone https://github.com/airblade/vim-gitgutter
+    git clone git@github.com:mileszs/ack.vim.git
+    git clone git@github.com:sheerun/vim-polyglot.git
 }
 
 install_command_t () {
