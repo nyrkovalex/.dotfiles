@@ -1,0 +1,30 @@
+[submodule "vim-bundles/syntastic"]
+	path = vim-bundles/syntastic
+	url = git@github.com:scrooloose/syntastic.git
+[submodule "vim-bundles/vim-buftabline"]
+	path = vim-bundles/vim-buftabline
+	url = git@github.com:ap/vim-buftabline.git
+[submodule "vim-bundles/vim-fugitive"]
+	path = vim-bundles/vim-fugitive
+	url = git@github.com:tpope/vim-fugitive.git
+[submodule "vim-bundles/vim-colors-solarized"]
+	path = vim-bundles/vim-colors-solarized
+	url = git://github.com/altercation/vim-colors-solarized.git
+[submodule "vim-bundles/vim-gitgutter"]
+	path = vim-bundles/vim-gitgutter
+	url = https://github.com/airblade/vim-gitgutter
+[submodule "vim-bundles/ack.vim"]
+	path = vim-bundles/ack.vim
+	url = git@github.com:mileszs/ack.vim.git
+[submodule "vim-bundles/vim-polyglot"]
+	path = vim-bundles/vim-polyglot
+	url = git@github.com:sheerun/vim-polyglot.git
+[submodule "vim-bundles/command-t"]
+	path = vim-bundles/command-t
+	url = git@github.com:wincent/command-t.git
+[submodule "vim-bundles/vimproc.vim"]
+	path = vim-bundles/vimproc.vim
+	url = https://github.com/Shougo/vimproc.vim.git
+[submodule "vim-bundles/tsuquyomi"]
+	path = vim-bundles/tsuquyomi
+	url = https://github.com/Quramy/tsuquyomi.git
