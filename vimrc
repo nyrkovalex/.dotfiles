@@ -16,6 +16,8 @@ set foldmethod=syntax
 set foldlevel=20
 set expandtab
 set splitright
+set backspace=2
+set hls
 
 
 " Look & feel
