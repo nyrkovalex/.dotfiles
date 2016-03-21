@@ -1,7 +1,7 @@
 #! /bin/bash
 
 install_pathogen () {
-  mkdir -p ~/.vim/autoload ~/.vim/bundle
+  mkdir -p ~/.vim/autoload ~/.dotfiles/bundle
   curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 }
 
@@ -12,13 +12,13 @@ install_bundles () {
 }
 
 compile_command_t () {
-  cd ~/.dotfiles/vim-bundles/command-t
+  cd ~/.dotfiles/bundle/command-t
   bundle install
   rake make
 }
 
 compile_vimproc () {
-  cd ~/.dotfiles/vim-bundles/vimproc.vim
+  cd ~/.dotfiles/bundle/vimproc.vim
   make
 }
 
@@ -27,5 +27,5 @@ install_bundles
 compile_vimproc
 compile_command_t
 
-ln -sf .dotfiles/vim-bundles/ ~/.vim/bundle
+ln -sf .dotfiles/bundle/ ~/.vim/bundle
 ln -sf .dotfiles/vimrc ~/.vimrc

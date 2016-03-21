@@ -1,30 +1,30 @@
-[submodule "vim-bundles/syntastic"]
-	path = vim-bundles/syntastic
+[submodule "bundle/syntastic"]
+	path = bundle/syntastic
 	url = git@github.com:scrooloose/syntastic.git
-[submodule "vim-bundles/vim-buftabline"]
-	path = vim-bundles/vim-buftabline
+[submodule "bundle/vim-buftabline"]
+	path = bundle/vim-buftabline
 	url = git@github.com:ap/vim-buftabline.git
-[submodule "vim-bundles/vim-fugitive"]
-	path = vim-bundles/vim-fugitive
+[submodule "bundle/vim-fugitive"]
+	path = bundle/vim-fugitive
 	url = git@github.com:tpope/vim-fugitive.git
-[submodule "vim-bundles/vim-colors-solarized"]
-	path = vim-bundles/vim-colors-solarized
+[submodule "bundle/vim-colors-solarized"]
+	path = bundle/vim-colors-solarized
 	url = git://github.com/altercation/vim-colors-solarized.git
-[submodule "vim-bundles/vim-gitgutter"]
-	path = vim-bundles/vim-gitgutter
+[submodule "bundle/vim-gitgutter"]
+	path = bundle/vim-gitgutter
 	url = https://github.com/airblade/vim-gitgutter
-[submodule "vim-bundles/ack.vim"]
-	path = vim-bundles/ack.vim
+[submodule "bundle/ack.vim"]
+	path = bundle/ack.vim
 	url = git@github.com:mileszs/ack.vim.git
-[submodule "vim-bundles/vim-polyglot"]
-	path = vim-bundles/vim-polyglot
+[submodule "bundle/vim-polyglot"]
+	path = bundle/vim-polyglot
 	url = git@github.com:sheerun/vim-polyglot.git
-[submodule "vim-bundles/command-t"]
-	path = vim-bundles/command-t
+[submodule "bundle/command-t"]
+	path = bundle/command-t
 	url = git@github.com:wincent/command-t.git
-[submodule "vim-bundles/vimproc.vim"]
-	path = vim-bundles/vimproc.vim
+[submodule "bundle/vimproc.vim"]
+	path = bundle/vimproc.vim
 	url = https://github.com/Shougo/vimproc.vim.git
-[submodule "vim-bundles/tsuquyomi"]
-	path = vim-bundles/tsuquyomi
+[submodule "bundle/tsuquyomi"]
+	path = bundle/tsuquyomi
 	url = https://github.com/Quramy/tsuquyomi.git

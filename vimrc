@@ -45,6 +45,10 @@ highlight GitStatus ctermbg=0 ctermfg=7
 highlight SyntasticErr ctermbg=3 ctermfg=7
 
 
+" Ack grep
+let g:ackprg = 'ag --vimgrep'
+
+
 " buftabline
 set hidden
 nnoremap <C-N> :bnext<CR>
@@ -61,6 +65,7 @@ let g:CommandTTraverseSCM = 'pwd'
 
 
 " syntastic
+let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_typescript_checkers=['tslint']
 let g:syntastic_stl_format='|!%e ?%w|'
 
