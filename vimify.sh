@@ -27,5 +27,5 @@ install_bundles
 compile_vimproc
 compile_command_t
 
-ln -sf .dotfiles/bundle/ ~/.vim/bundle
+ln -sf .dotfiles/bundle/ ~/.vim
 ln -sf .dotfiles/vimrc ~/.vimrc

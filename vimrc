@@ -31,7 +31,7 @@ set nowrap
 set number
 set ruler
 
-set statusline=%f\ %m\ %#SyntasticErr#%{SyntasticStatuslineFlag()}%*%=%{getcwd()}\ %#GitStatus#\|%{fugitive#head(8)}\|%*\ %l:%v
+set statusline=%f\ %m\ %#SyntasticErr#%{SyntasticStatuslineFlag()}%*%=\ %{getcwd()}\ %#GitStatus#\|%{fugitive#head(8)}\|%*\ %l:%v
 set omnifunc=syntaxcomplete#Complete
 
 highlight CursorLine cterm=None ctermbg=0
