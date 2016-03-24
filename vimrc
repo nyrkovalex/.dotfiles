@@ -18,6 +18,8 @@ set expandtab
 set splitright
 set backspace=2
 set hls
+set mouse=a
+set diffopt+=vertical
 
 
 " Look & feel
