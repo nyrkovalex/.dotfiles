@@ -25,7 +25,7 @@ set clipboard=unnamed
 
 " Look & feel
 colorscheme solarized
-set background=dark
+set background=light
 
 set listchars=tab:»\ ,trail:·
 set list
@@ -37,21 +37,20 @@ set ruler
 set statusline=%f\ %m\ %#SyntasticErr#%{SyntasticStatuslineFlag()}%*%=\ %{getcwd()}\ %#GitStatus#\|%{fugitive#head(8)}\|%*\ %l:%v
 set omnifunc=syntaxcomplete#Complete
 
-highlight CursorLine cterm=None ctermbg=0
 highlight SpecialKey cterm=None ctermbg=None ctermfg=0
-highlight VertSplit ctermfg=0 ctermbg=8
-highlight LineNr ctermfg=0 ctermbg=8
-highlight TablineFill ctermbg=8 ctermfg=0
+highlight VertSplit ctermfg=7 ctermbg=None
+highlight LineNr ctermfg=7 ctermbg=None
+highlight TablineFill cterm=None ctermbg=None
 highlight TablineSel cterm=None ctermfg=7 ctermbg=9
-highlight Tabline cterm=None ctermfg=7 ctermbg=0
+highlight Tabline cterm=None
 highlight StatusLine cterm=None ctermfg=7 ctermbg=9
-highlight NonText cterm=None ctermfg=0
-highlight GitStatus ctermbg=0 ctermfg=7
+highlight NonText cterm=None ctermfg=7
+highlight GitStatus ctermbg=0 ctermfg=None
 highlight SyntasticErr ctermbg=3 ctermfg=7
 
 
 " split navigation
-nmap <silent> <C-K> :wincmd k<CR>
+nmap <silent> <C-k> :wincmd k<CR>
 nmap <silent> <C-J> :wincmd j<CR>
 nmap <silent> <C-h> :wincmd h<CR>
 nmap <silent> <C-l> :wincmd l<CR>
@@ -65,7 +64,7 @@ let g:ackprg = 'ag --vimgrep'
 set hidden
 nnoremap <silent> <C-N> :bnext<CR>
 nnoremap <silent> <C-P> :bprev<CR>
-nnoremap <silent> <C-Q> :bd<CR>
+nnoremap <silent> <C-C> :bd<CR>
 
 let g:buftabline_indicators = 1
 let g:buftabline_show = 1
@@ -99,11 +98,16 @@ inoremap <A-t> <C-R>=strftime("%d/%m/%y %H:%M:%S")<CR>
 
 " TypeScript
 let g:syntastic_typescript_checkers=['tslint']
-autocmd FileType typescript nnoremap <buffer> <C-h> :echo tsuquyomi#hint()<CR>
+autocmd FileType typescript nnoremap <buffer> <C-/> :echo tsuquyomi#hint()<CR>
 
 
 " JavaScript
 let g:syntastic_javascript_checkers = ['eslint']
+autocmd User Node
+  \ if &filetype == "javascript" |
+  \   nmap <buffer> <C-w>f <Plug>NodeVSplitGotoFile |
+  \   nmap <buffer> <C-w><C-f> <Plug>NodeVSplitGotoFile |
+  \ endif
 
 
 " Python

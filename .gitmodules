@@ -28,3 +28,6 @@
 [submodule "bundle/tsuquyomi"]
 	path = bundle/tsuquyomi
 	url = https://github.com/Quramy/tsuquyomi.git
+[submodule "bundle/vim-node"]
+	path = bundle/vim-node
+	url = git@github.com:moll/vim-node.git
