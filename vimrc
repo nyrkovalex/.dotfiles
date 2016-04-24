@@ -25,7 +25,7 @@ set clipboard=unnamed
 
 " Look & feel
 colorscheme solarized
-set background=light
+set background=dark
 
 set listchars=tab:»\ ,trail:·
 set list
@@ -38,14 +38,14 @@ set statusline=%f\ %m\ %#SyntasticErr#%{SyntasticStatuslineFlag()}%*%=\ %{getcwd
 set omnifunc=syntaxcomplete#Complete
 
 highlight SpecialKey cterm=None ctermbg=None ctermfg=0
-highlight VertSplit ctermfg=7 ctermbg=None
-highlight LineNr ctermfg=7 ctermbg=None
+highlight VertSplit ctermfg=0 ctermbg=None
+highlight LineNr ctermfg=0 ctermbg=None
 highlight TablineFill cterm=None ctermbg=None
 highlight TablineSel cterm=None ctermfg=7 ctermbg=9
 highlight Tabline cterm=None
 highlight StatusLine cterm=None ctermfg=7 ctermbg=9
-highlight NonText cterm=None ctermfg=7
-highlight GitStatus ctermbg=0 ctermfg=None
+highlight NonText cterm=None ctermfg=0
+highlight GitStatus ctermbg=None ctermfg=None
 highlight SyntasticErr ctermbg=3 ctermfg=7
 
 
