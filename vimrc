@@ -20,7 +20,9 @@ set backspace=2
 set hls
 set mouse=a
 set diffopt+=vertical
-set clipboard=unnamed
+set clipboard=unnamedplus
+
+set directory^=$HOME/.vim/tmp//
 
 
 " Look & feel
