@@ -36,7 +36,7 @@ set nowrap
 set number
 set ruler
 
-set statusline=%f\ %m\ %#SyntasticErr#%{SyntasticStatuslineFlag()}%*%=\ %{getcwd()}\ %#GitStatus#\|%{fugitive#head(8)}\|%*\ %l:%v
+set statusline=%f\ %m\ %#ErrorMsg#%{neomake#statusline#LoclistStatus()}%*%=\ %{getcwd()}\ %#GitStatus#\|%{fugitive#head(8)}\|%*\ %l:%v
 set omnifunc=syntaxcomplete#Complete
 
 highlight SpecialKey cterm=None ctermbg=None ctermfg=0
@@ -48,7 +48,8 @@ highlight Tabline cterm=None
 highlight StatusLine cterm=None ctermfg=7 ctermbg=9
 highlight NonText cterm=None ctermfg=0
 highlight GitStatus ctermbg=None ctermfg=None
-highlight SyntasticErr ctermbg=3 ctermfg=7
+highlight NeomakeErrorSign ctermfg=1
+highlight ErrorMsg cterm=None ctermbg=3 ctermfg=7
 
 
 " split navigation
@@ -72,14 +73,15 @@ let g:buftabline_indicators = 1
 let g:buftabline_show = 1
 
 
-" Command-T
+" Ctrl-P
+let g:ctrlp_map = '<leader>t'
+let g:ctrlp_working_path_mode = ''
+
 set wildignore+=node_modules,**/node_modules/**,**/bower_components/**,**/public/**,**/liquibase/**,**/typings/**,**/__pycache__/**,**/*.pyc
-let g:CommandTTraverseSCM = 'pwd'
 
 
-" syntastic
-let g:syntastic_stl_format='|!%e ?%w|'
-
+" Neomake
+autocmd! BufWritePost * Neomake
 
 " Handy stuff
 " Move lines
@@ -99,12 +101,12 @@ inoremap <A-t> <C-R>=strftime("%d/%m/%y %H:%M:%S")<CR>
 
 
 " TypeScript
-let g:syntastic_typescript_checkers=['tslint']
+let g:neomake_typescript_checkers=['tslint']
 autocmd FileType typescript nnoremap <buffer> <C-/> :echo tsuquyomi#hint()<CR>
 
 
 " JavaScript
-let g:syntastic_javascript_checkers = ['eslint']
+let g:neomake_javascript_enabled_makers = ['eslint']
 autocmd User Node
   \ if &filetype == "javascript" |
   \   nmap <buffer> <C-w>f <Plug>NodeVSplitGotoFile |

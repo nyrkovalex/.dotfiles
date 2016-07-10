@@ -1,8 +1,10 @@
 #! /bin/bash
 
+VIM_HOME=~/.config/nvim
+
 install_pathogen () {
-  mkdir -p ~/.vim/autoload ~/.dotfiles/bundle
-  curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+  mkdir -p $VIM_HOME/autoload ~/.dotfiles/bundle
+  curl -LSso $VIM_HOME/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 }
 
 install_bundles () {
@@ -11,21 +13,16 @@ install_bundles () {
   git submodule update
 }
 
-compile_command_t () {
-  cd ~/.dotfiles/bundle/command-t
-  bundle install
-  rake make
-}
-
 compile_vimproc () {
   cd ~/.dotfiles/bundle/vimproc.vim
   make
 }
 
+mkdir -p $VIM_HOME
 install_pathogen
 install_bundles
 compile_vimproc
-compile_command_t
 
-ln -sf .dotfiles/bundle/ ~/.vim
-ln -sf .dotfiles/vimrc ~/.vimrc
+cd $VIM_HOME
+ln -sf .dotfiles/bundle
+ln -sf .dotfiles/vimrc ./init.vim
