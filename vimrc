@@ -21,6 +21,7 @@ set hls
 set mouse=a
 set diffopt+=vertical
 set clipboard=unnamedplus
+set backupcopy=yes
 
 set directory^=$HOME/.vim/tmp//
 
@@ -80,8 +81,9 @@ let g:buftabline_show = 1
 " Ctrl-P
 let g:ctrlp_map = '<leader>t'
 let g:ctrlp_working_path_mode = ''
+let g:ctrlp_show_hidden = 1
 
-set wildignore+=node_modules,**/node_modules/**,**/bower_components/**,**/public/**,**/liquibase/**,**/typings/**,**/__pycache__/**,**/*.pyc
+set wildignore+=node_modules,**/node_modules/**,**/bower_components/**,**/public/**,**/liquibase/**,**/typings/**,**/__pycache__/**,**/*.pyc,**/build/**
 
 
 " Neomake

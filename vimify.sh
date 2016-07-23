@@ -24,5 +24,5 @@ install_bundles
 compile_vimproc
 
 cd $VIM_HOME
-ln -sf .dotfiles/bundle
-ln -sf .dotfiles/vimrc ./init.vim
+ln -sf ~/.dotfiles/bundle
+ln -sf ~/.dotfiles/vimrc ./init.vim
