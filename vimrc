@@ -30,7 +30,7 @@ set directory^=$HOME/.vim/tmp//
 colorscheme solarized
 set background=dark
 
-set listchars=tab:»\ ,trail:·
+set listchars=tab:»\ ,trail:·,space:·
 set list
 set cursorline
 set nowrap
@@ -83,7 +83,7 @@ let g:ctrlp_map = '<leader>t'
 let g:ctrlp_working_path_mode = ''
 let g:ctrlp_show_hidden = 1
 
-set wildignore+=node_modules,**/node_modules/**,**/bower_components/**,**/public/**,**/liquibase/**,**/typings/**,**/__pycache__/**,**/*.pyc,**/build/**
+set wildignore+=node_modules,**/node_modules/**,**/bower_components/**,**/liquibase/**,**/typings/**,**/__pycache__/**,**/*.pyc,**/build/**
 
 
 " Neomake
