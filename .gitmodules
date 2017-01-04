@@ -31,3 +31,7 @@
 [submodule "bundle/neomake"]
 	path = bundle/neomake
 	url = git@github.com:neomake/neomake.git
+[submodule "bundle/YouCompleteMe"]
+	path = bundle/YouCompleteMe
+	url = git@github.com:Valloric/YouCompleteMe.git
+

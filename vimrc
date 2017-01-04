@@ -39,6 +39,7 @@ set ruler
 
 set statusline=%f\ %m\ %#ErrorMsg#%{neomake#statusline#LoclistStatus()}%*%=\ %{getcwd()}\ %#GitStatus#\|%{fugitive#head(8)}\|%*\ %l:%v
 set omnifunc=syntaxcomplete#Complete
+set completeopt-=preview
 
 highlight SpecialKey cterm=None ctermbg=None ctermfg=0
 highlight VertSplit ctermfg=0 ctermbg=None
@@ -83,7 +84,7 @@ let g:ctrlp_map = '<leader>t'
 let g:ctrlp_working_path_mode = ''
 let g:ctrlp_show_hidden = 1
 
-set wildignore+=node_modules,**/node_modules/**,**/bower_components/**,**/liquibase/**,**/typings/**,**/__pycache__/**,**/*.pyc,**/build/**
+set wildignore+=**/node_modules/**,**/bower_components/**,**/liquibase/**,**/typings/**,**/__pycache__/**,**/*.pyc,**/dist/**,**/public/**
 
 
 " Neomake
