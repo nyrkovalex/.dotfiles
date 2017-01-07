@@ -27,8 +27,8 @@ set directory^=$HOME/.vim/tmp//
 
 
 " Look & feel
-colorscheme solarized
-set background=dark
+let g:aldmeris_termcolors = "tango"
+colorscheme aldmeris
 
 set listchars=tab:»\ ,trail:·,space:·
 set list
@@ -41,17 +41,15 @@ set statusline=%f\ %m\ %#ErrorMsg#%{neomake#statusline#LoclistStatus()}%*%=\ %{g
 set omnifunc=syntaxcomplete#Complete
 set completeopt-=preview
 
-highlight SpecialKey cterm=None ctermbg=None ctermfg=0
-highlight VertSplit ctermfg=0 ctermbg=None
-highlight LineNr ctermfg=0 ctermbg=None
-highlight TablineFill cterm=None ctermbg=None
-highlight TablineSel cterm=None ctermfg=7 ctermbg=9
-highlight Tabline cterm=None
-highlight StatusLine cterm=None ctermfg=7 ctermbg=9
-highlight NonText cterm=None ctermfg=0
-highlight GitStatus ctermbg=None ctermfg=None
-highlight NeomakeErrorSign ctermfg=1
-highlight ErrorMsg cterm=None ctermbg=3 ctermfg=7
+highlight SpecialKey ctermbg=None
+highlight VertSplit ctermfg=8 ctermbg=16
+highlight TablineFill cterm=None ctermbg=8
+highlight TablineSel cterm=None ctermbg=6 ctermfg=15
+highlight Tabline cterm=None ctermbg=5
+highlight StatusLine cterm=None ctermfg=15 ctermbg=6
+highlight StatusLineNC cterm=None ctermbg=5 ctermfg=7
+highlight NeomakeErrorSign ctermfg=1 ctermbg=16
+highlight NeomakeWarningSign ctermfg=3 ctermbg=16
 
 
 " split navigation

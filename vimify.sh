@@ -18,10 +18,16 @@ compile_vimproc () {
   make
 }
 
+build_ycm () {
+  cd ~/.dotfiles/bundle/YouCompleteMe
+  ./install.py
+}
+
 mkdir -p $VIM_HOME
 install_pathogen
 install_bundles
-compile_vimproc
+git submodule update --init --recursive
+build_ycm
 
 cd $VIM_HOME
 ln -sf ~/.dotfiles/bundle
