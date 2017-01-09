@@ -45,9 +45,10 @@ highlight SpecialKey ctermbg=None
 highlight VertSplit ctermfg=8 ctermbg=16
 highlight TablineFill cterm=None ctermbg=8
 highlight TablineSel cterm=None ctermbg=6 ctermfg=15
-highlight Tabline cterm=None ctermbg=5
+highlight Tabline cterm=None ctermbg=8
+highlight BufTabLineActive cterm=None ctermbg=7 ctermfg=8
 highlight StatusLine cterm=None ctermfg=15 ctermbg=6
-highlight StatusLineNC cterm=None ctermbg=5 ctermfg=7
+highlight StatusLineNC cterm=None ctermbg=7 ctermfg=8
 highlight NeomakeErrorSign ctermfg=1 ctermbg=16
 highlight NeomakeWarningSign ctermfg=3 ctermbg=16
 
