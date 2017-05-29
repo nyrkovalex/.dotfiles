@@ -118,3 +118,10 @@ autocmd User Node
 
 " Python
 autocmd FileType python setlocal sw=4 sts=4
+nmap <A-i> :!isort %<CR> :e<CR> :Neomake<CR>
+
+" Go
+let g:ycm_gocode_binary_path = "$GOPATH/bin/gocode"
+autocmd FileType go nnoremap <A-t> :GoTest<CR>
+autocmd FileType go inoremap <A-t> :GoTest<CR>
+autocmd FileType go nnoremap <leader>r :GoRename<CR>
