@@ -29,3 +29,6 @@ URxvt.scrollWithBuffer:  true
 URxvt.scrollTtyKeypress: true
 
 URxvt.letterSpace: -1
+
+URxvt.perl-ext:
+URxvt.perl-ext-common:
