@@ -92,7 +92,8 @@ vnoremap <A-j> :m '>+1<CR>gv=gv
 vnoremap <A-k> :m '<-2<CR>gv=gv
 
 " Copy to clipboard
-vnoremap <C-C> "+y
+vmap <C-C> "+y
+nmap <C-C> "+yy
 
 " Rename macro
 nnoremap <leader>r :%s/\<<C-r><C-w>\>/<C-r><C-w>/gc<left><left><left>
