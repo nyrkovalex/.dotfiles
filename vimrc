@@ -65,7 +65,7 @@ let g:ackprg = 'ag --vimgrep'
 set hidden
 nnoremap <silent> <C-N> :bnext<CR>
 nnoremap <silent> <C-P> :bprev<CR>
-nnoremap <silent> <C-C> :bd<CR>
+nnoremap <silent> <C-Q> :bd<CR>
 
 let g:buftabline_indicators = 1
 let g:buftabline_show = 1
@@ -90,6 +90,9 @@ inoremap <A-j> <Esc>:m .+1<CR>==gi
 inoremap <A-k> <Esc>:m .-2<CR>==gi
 vnoremap <A-j> :m '>+1<CR>gv=gv
 vnoremap <A-k> :m '<-2<CR>gv=gv
+
+" Copy to clipboard
+vnoremap <C-C> "+y
 
 " Rename macro
 nnoremap <leader>r :%s/\<<C-r><C-w>\>/<C-r><C-w>/gc<left><left><left>
