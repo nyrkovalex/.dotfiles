@@ -164,7 +164,6 @@ bar {
         }
 }
 
-
 # Lock and shutdow
 set $Locker i3lock && sleep 1
 
@@ -195,3 +194,6 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 10
 
 #Screenshots
 bindsym --release Print exec scrot -s ~/Pictures/screenshots/%Y-%m-%d-%T.png
+
+# Window management
+bindsym $mod+x [urgent=latest] focus

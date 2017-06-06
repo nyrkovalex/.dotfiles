@@ -10,7 +10,7 @@ install_pathogen () {
 install_bundles () {
   cd ~/.dotfiles
   git submodule init
-  git submodule update
+  git submodule update --init --recursive
 }
 
 compile_vimproc () {
@@ -26,8 +26,8 @@ build_ycm () {
 mkdir -p $VIM_HOME
 install_pathogen
 install_bundles
-git submodule update --init --recursive
 build_ycm
+compile_vimproc
 
 cd $VIM_HOME
 ln -sf ~/.dotfiles/bundle
