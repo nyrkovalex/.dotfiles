@@ -40,6 +40,7 @@ set ruler
 set statusline=%f\ %m\ %#ErrorMsg#%{neomake#statusline#LoclistStatus()}%*%=\ %{getcwd()}\ %#GitStatus#\|%{fugitive#head(8)}\|%*\ %l:%v
 set omnifunc=syntaxcomplete#Complete
 set completeopt-=preview
+set cinoptions+=:0
 
 highlight BufTabLineActive cterm=None ctermbg=102 ctermfg=0
 highlight NeomakeErrorSign ctermfg=1 ctermbg=16
@@ -76,7 +77,7 @@ let g:ctrlp_map = '<leader>t'
 let g:ctrlp_working_path_mode = ''
 let g:ctrlp_show_hidden = 1
 
-set wildignore+=**/node_modules/**,**/bower_components/**,**/liquibase/**,**/typings/**,**/__pycache__/**,**/*.pyc,**/dist/**,**/public/**
+set wildignore+=**/node_modules/**,**/bower_components/**,**/liquibase/**,**/typings/**,**/__pycache__/**,**/*.pyc,**/dist/**
 
 
 " Neomake
@@ -129,3 +130,15 @@ let g:ycm_gocode_binary_path = "$GOPATH/bin/gocode"
 autocmd FileType go nnoremap <A-t> :GoTest<CR>
 autocmd FileType go inoremap <A-t> :GoTest<CR>
 autocmd FileType go nnoremap <leader>r :GoRename<CR>
+
+" Elm
+" Disable elm-vim keybindings
+let g:elm_setup_keybindings = 0
+
+let g:ycm_semantic_triggers = {
+  \ 'elm' : ['.'],
+  \ }
+
+autocmd FileType elm nmap <leader>f :ElmFormat<CR>
+autocmd FileType elm nmap <leader>e :ElmErrorDetail<CR>
+autocmd BufWritePre *.elm :ElmFormat
