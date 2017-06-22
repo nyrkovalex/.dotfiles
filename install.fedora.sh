@@ -16,5 +16,6 @@ dconf write /org/gnome/desktop/input-sources/xkb-options "['compose:ralt']" \
     ranger \
     postgresql-server \
     postgresql-devel \
-    redhat-rpm-config
+    redhat-rpm-config \
+    python3-devel
 
