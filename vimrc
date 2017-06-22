@@ -37,14 +37,17 @@ set nowrap
 set number
 set ruler
 
-set statusline=%f\ %m\ %#ErrorMsg#%{neomake#statusline#LoclistStatus()}%*%=\ %{getcwd()}\ %#GitStatus#\|%{fugitive#head(8)}\|%*\ %l:%v
 set omnifunc=syntaxcomplete#Complete
 set completeopt-=preview
 set cinoptions+=:0
 
-highlight BufTabLineActive cterm=None ctermbg=102 ctermfg=0
-highlight NeomakeErrorSign ctermfg=1 ctermbg=16
-highlight NeomakeWarningSign ctermfg=3 ctermbg=16
+
+" Statusline
+function! StatusLine() abort
+  return '%f %m ' . LinterStatus() . '%= %{getcwd()} %#GitStatus#|%{fugitive#head(8)}|%* %l:%v'
+endfunction
+
+set statusline=%!StatusLine()
 
 
 " split navigation
@@ -56,6 +59,35 @@ tnoremap <C-h> <C-\><C-n><C-w>h
 tnoremap <C-j> <C-\><C-n><C-w>j
 tnoremap <C-k> <C-\><C-n><C-w>k
 tnoremap <C-l> <C-\><C-n><C-w>l
+
+
+" ALE
+highlight CheckedStatus ctermbg=2
+highlight WarningStatus ctermbg=3 ctermfg=0
+
+function! LinterStatus() abort
+  let l:counts = ale#statusline#Count(bufnr(''))
+
+  let l:all_errors = l:counts.error + l:counts.style_error
+  let l:all_non_errors = l:counts.total - l:all_errors
+
+  if (l:counts.total == 0)
+    return '%#CheckedStatus# ✓ %*'
+  endif
+
+  let l:errormsg = all_errors > 0 ? printf('%%#ErrorMsg# %de %%*', all_errors) : ''
+  let l:warningmsg = all_non_errors > 0 ? printf('%%#WarningStatus# %dw %%*', all_non_errors) : ''
+
+  return l:errormsg . l:warningmsg
+endfunction
+
+let g:ale_sign_warning = '⚠'
+let g:ale_sign_error = '×'
+
+highlight ALEErrorSign ctermfg=1 ctermbg=16 cterm=bold
+highlight ALEWarningSign ctermfg=3 ctermbg=16
+nnoremap <leader>e :ALENextWrap<cr>
+nnoremap <leader>E :ALEPreviousWrap<cr>
 
 
 " Ack grep
@@ -71,6 +103,8 @@ nnoremap <silent> <C-Q> :bd<CR>
 let g:buftabline_indicators = 1
 let g:buftabline_show = 1
 
+highlight BufTabLineActive cterm=None ctermbg=102 ctermfg=0
+
 
 " Ctrl-P
 let g:ctrlp_map = '<leader>t'
@@ -79,9 +113,6 @@ let g:ctrlp_show_hidden = 1
 
 set wildignore+=**/node_modules/**,**/bower_components/**,**/liquibase/**,**/typings/**,**/__pycache__/**,**/*.pyc,**/dist/**
 
-
-" Neomake
-autocmd! BufWritePost * Neomake
 
 " Handy stuff
 " Move lines
@@ -107,11 +138,7 @@ nnoremap <A-t> a<C-R>=strftime("%d/%m/%y %H:%M:%S")<CR><Esc>
 inoremap <A-t> <C-R>=strftime("%d/%m/%y %H:%M:%S")<CR>
 
 
-" TypeScript
-let g:neomake_typescript_checkers=['tslint']
-autocmd FileType typescript nnoremap <buffer> <C-/> :echo tsuquyomi#hint()<CR>
-
-
+" Languages
 " JavaScript
 let g:neomake_javascript_enabled_makers = ['eslint']
 autocmd User Node
@@ -123,7 +150,7 @@ autocmd User Node
 
 " Python
 autocmd FileType python setlocal sw=4 sts=4
-nmap <A-i> :!isort %<CR> :e<CR> :Neomake<CR>
+nmap <A-i> :!isort %<CR> :e<CR>
 
 " Go
 let g:ycm_gocode_binary_path = "$GOPATH/bin/gocode"
