@@ -44,7 +44,8 @@ set cinoptions+=:0
 
 " Statusline
 function! StatusLine() abort
-  return '%f %m ' . LinterStatus() . '%= %{getcwd()} %#GitStatus#|%{fugitive#head(8)}|%* %l:%v'
+  let l:lintermsg = '%#CheckedStatus#%{LinterOk()}' . '%#ErrorMsg#%{LinterErrors()}' . '%#WarningStatus#%{LinterWarnings()}%*'
+  return '%f %m ' . l:lintermsg . '%= %{getcwd()} %#GitStatus#|%{fugitive#head(8)}|%* %l:%v'
 endfunction
 
 set statusline=%!StatusLine()
@@ -65,20 +66,25 @@ tnoremap <C-l> <C-\><C-n><C-w>l
 highlight CheckedStatus ctermbg=2
 highlight WarningStatus ctermbg=3 ctermfg=0
 
-function! LinterStatus() abort
+function! LinterOk() abort
+  let l:counts = ale#statusline#Count(bufnr(''))
+  return l:counts.total == 0 ? ' ✓ ' : ''
+endfunction
+
+function! LinterErrors() abort
+  let l:counts = ale#statusline#Count(bufnr(''))
+
+  let l:all_errors = l:counts.error + l:counts.style_error
+  return all_errors > 0 ? printf(' %de ', all_errors) : ''
+endfunction
+
+function! LinterWarnings() abort
   let l:counts = ale#statusline#Count(bufnr(''))
 
   let l:all_errors = l:counts.error + l:counts.style_error
   let l:all_non_errors = l:counts.total - l:all_errors
 
-  if (l:counts.total == 0)
-    return '%#CheckedStatus# ✓ %*'
-  endif
-
-  let l:errormsg = all_errors > 0 ? printf('%%#ErrorMsg# %de %%*', all_errors) : ''
-  let l:warningmsg = all_non_errors > 0 ? printf('%%#WarningStatus# %dw %%*', all_non_errors) : ''
-
-  return l:errormsg . l:warningmsg
+  return all_non_errors > 0 ? printf('  %dw ', all_non_errors) : ''
 endfunction
 
 let g:ale_sign_column_always = 1

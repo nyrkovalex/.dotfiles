@@ -16,9 +16,6 @@
 [submodule "bundle/vim-polyglot"]
 	path = bundle/vim-polyglot
 	url = git@github.com:sheerun/vim-polyglot.git
-[submodule "bundle/vimproc.vim"]
-	path = bundle/vimproc.vim
-	url = https://github.com/Shougo/vimproc.vim.git
 [submodule "bundle/vim-node"]
 	path = bundle/vim-node
 	url = git@github.com:moll/vim-node.git
