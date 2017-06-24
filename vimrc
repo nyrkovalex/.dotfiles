@@ -39,7 +39,6 @@ set ruler
 
 set omnifunc=syntaxcomplete#Complete
 set completeopt-=preview
-set cinoptions+=:0
 
 
 " Statusline
