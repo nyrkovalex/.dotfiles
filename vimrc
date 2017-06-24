@@ -90,6 +90,7 @@ endfunction
 let g:ale_sign_column_always = 1
 let g:ale_sign_warning = '⚠'
 let g:ale_sign_error = '×'
+let g:ale_lint_delay = 500
 
 highlight ALEErrorSign ctermfg=1 ctermbg=16 cterm=bold
 highlight ALEWarningSign ctermfg=3 ctermbg=16
