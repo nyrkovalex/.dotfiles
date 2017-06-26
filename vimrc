@@ -178,4 +178,4 @@ autocmd FileType elm nmap <leader>f :ElmFormat<CR>
 autocmd FileType elm nmap <leader>e :ElmErrorDetail<CR>
 autocmd BufWritePre *.elm :ElmFormat
 
-source ./local.vim
+source ~/.dotfiles/local.vim
