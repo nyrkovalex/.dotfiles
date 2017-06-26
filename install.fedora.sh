@@ -1,6 +1,7 @@
 dconf write /org/gnome/desktop/input-sources/xkb-options "['compose:ralt']" \
   && sudo dnf group install "C Development Tools and Libraries" \
   && sudo dnf install \
+    neovim \
     cmake \
     python-devel \
     tmux \

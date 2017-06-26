@@ -13,11 +13,6 @@ install_bundles () {
   git submodule update --init --recursive
 }
 
-compile_vimproc () {
-  cd ~/.dotfiles/bundle/vimproc.vim
-  make
-}
-
 build_ycm () {
   cd ~/.dotfiles/bundle/YouCompleteMe
   ./install.py
@@ -27,8 +22,8 @@ mkdir -p $VIM_HOME
 install_pathogen
 install_bundles
 build_ycm
-compile_vimproc
 
 cd $VIM_HOME
 ln -sf ~/.dotfiles/bundle
 ln -sf ~/.dotfiles/vimrc ./init.vim
+touch ~/.dotfiles/local.vim
