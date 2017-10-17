@@ -44,7 +44,7 @@ set completeopt-=preview
 " Statusline
 function! StatusLine() abort
   let l:lintermsg = '%#CheckedStatus#%{LinterOk()}' . '%#ErrorMsg#%{LinterErrors()}' . '%#WarningStatus#%{LinterWarnings()}%*'
-  return '%f %m ' . l:lintermsg . '%= %{getcwd()} %#GitStatus#|%{fugitive#head(8)}|%* %l:%v'
+  return '%f %m ' . l:lintermsg . '%= %#GitStatus#|%{fugitive#head(8)}|%* %l:%v'
 endfunction
 
 set statusline=%!StatusLine()
@@ -113,13 +113,15 @@ let g:buftabline_show = 1
 
 highlight BufTabLineActive cterm=None ctermbg=102 ctermfg=0
 
+" ALE hightlight
+highlight ALEError ctermbg=none cterm=underline ctermfg=9
 
 " Ctrl-P
 let g:ctrlp_map = '<leader>t'
 let g:ctrlp_working_path_mode = ''
 let g:ctrlp_show_hidden = 1
 
-set wildignore+=**/node_modules/**,**/bower_components/**,**/liquibase/**,**/typings/**,**/__pycache__/**,**/*.pyc,**/dist/**
+set wildignore+=**/node_modules/**,**/bower_components/**,**/liquibase/**,**/__pycache__/**,**/*.pyc,**/dist/**
 
 
 " Handy stuff
@@ -148,13 +150,13 @@ inoremap <A-t> <C-R>=strftime("%d/%m/%y %H:%M:%S")<CR>
 
 " Languages
 " JavaScript
-let g:neomake_javascript_enabled_makers = ['eslint']
 autocmd User Node
   \ if &filetype == "javascript" |
   \   nmap <buffer> <C-w>f <Plug>NodeVSplitGotoFile |
   \   nmap <buffer> <C-w><C-f> <Plug>NodeVSplitGotoFile |
   \ endif
 
+autocmd FileType javascript nnoremap <leader>f :!eslint --fix %<CR>:e<CR>
 
 " Python
 autocmd FileType python setlocal sw=4 sts=4
@@ -177,5 +179,14 @@ let g:ycm_semantic_triggers = {
 autocmd FileType elm nmap <leader>f :ElmFormat<CR>
 autocmd FileType elm nmap <leader>e :ElmErrorDetail<CR>
 autocmd BufWritePre *.elm :ElmFormat
+
+" Typescript
+if !exists("g:ycm_semantic_triggers")
+  let g:ycm_semantic_triggers = {}
+endif
+let g:ycm_semantic_triggers['typescript'] = ['.']
+autocmd FileType typescript nnoremap <leader>f :!tslint --fix %<CR>:e<CR>
+autocmd FileType typescript nnoremap <leader>q :YcmCompleter GetType<CR>
+autocmd FileType typescript nnoremap <leader>r :YcmCompleter RefactorRename <C-r><C-w>
 
 source ~/.dotfiles/local.vim
