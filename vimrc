@@ -22,6 +22,7 @@ set mouse=a
 set diffopt+=vertical
 set clipboard=unnamedplus
 set backupcopy=yes
+set noswapfile
 
 set directory^=$HOME/.vim/tmp//
 
@@ -120,6 +121,9 @@ highlight ALEError ctermbg=none cterm=underline ctermfg=9
 let g:ctrlp_map = '<leader>t'
 let g:ctrlp_working_path_mode = ''
 let g:ctrlp_show_hidden = 1
+let g:ctrlp_match_current_file = 1
+" exclude gitignore files
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 
 set wildignore+=**/node_modules/**,**/bower_components/**,**/liquibase/**,**/__pycache__/**,**/*.pyc,**/dist/**
 
@@ -136,6 +140,8 @@ vnoremap <A-k> :m '<-2<CR>gv=gv
 " Copy to clipboard
 vmap <C-C> "+y
 nmap <C-C> "+yy
+vmap <leader>d "_d
+nmap <leader>d "_d
 
 " Rename macro
 nnoremap <leader>r :%s/\<<C-r><C-w>\>/<C-r><C-w>/gc<left><left><left>
@@ -156,7 +162,7 @@ autocmd User Node
   \   nmap <buffer> <C-w><C-f> <Plug>NodeVSplitGotoFile |
   \ endif
 
-autocmd FileType javascript nnoremap <leader>f :!eslint --fix %<CR>:e<CR>
+autocmd FileType javascript nnoremap <buffer> <leader>f :!eslint --fix %<CR>:e<CR>
 
 " Python
 autocmd FileType python setlocal sw=4 sts=4
@@ -185,8 +191,11 @@ if !exists("g:ycm_semantic_triggers")
   let g:ycm_semantic_triggers = {}
 endif
 let g:ycm_semantic_triggers['typescript'] = ['.']
-autocmd FileType typescript nnoremap <leader>f :!tslint --fix %<CR>:e<CR>
-autocmd FileType typescript nnoremap <leader>q :YcmCompleter GetType<CR>
-autocmd FileType typescript nnoremap <leader>r :YcmCompleter RefactorRename <C-r><C-w>
+autocmd FileType typescript nmap <buffer> <leader>f :!tslint --fix %<CR>:e<CR>
+autocmd FileType typescript nmap <buffer> <leader>q :YcmCompleter GetType<CR>
+autocmd FileType typescript nmap <buffer> <leader>r :YcmCompleter RefactorRename <C-r><C-w>
+let g:ale_linters = {
+\   'typescript': ['tsserver', 'tslint'],
+\}
 
 source ~/.dotfiles/local.vim
