@@ -93,8 +93,8 @@ let g:ale_sign_warning = '⚠'
 let g:ale_sign_error = '×'
 let g:ale_lint_delay = 500
 
-highlight ALEErrorSign ctermfg=1 ctermbg=16 cterm=bold
-highlight ALEWarningSign ctermfg=3 ctermbg=16
+highlight ALEErrorSign ctermfg=1 ctermbg=0 cterm=bold
+highlight ALEWarningSign ctermfg=3 ctermbg=0
 nnoremap <leader>e :ALENextWrap<cr>
 nnoremap <leader>E :ALEPreviousWrap<cr>
 
