@@ -68,13 +68,14 @@ highlight WarningStatus ctermbg=3 ctermfg=0
 
 function! LinterOk() abort
   let l:counts = ale#statusline#Count(bufnr(''))
-  return l:counts.total == 0 ? ' ✓ ' : ''
+  let l:total = l:counts.total + youcompleteme#GetErrorCount() + youcompleteme#GetWarningCount()
+  return l:total == 0 ? ' ✓ ' : ''
 endfunction
 
 function! LinterErrors() abort
   let l:counts = ale#statusline#Count(bufnr(''))
 
-  let l:all_errors = l:counts.error + l:counts.style_error
+  let l:all_errors = l:counts.error + l:counts.style_error + youcompleteme#GetErrorCount()
 
   return all_errors > 0 ? printf(' %de ', all_errors) : ''
 endfunction
@@ -82,7 +83,7 @@ endfunction
 function! LinterWarnings() abort
   let l:counts = ale#statusline#Count(bufnr(''))
 
-  let l:all_errors = l:counts.error + l:counts.style_error
+  let l:all_errors = l:counts.error + l:counts.style_error + youcompleteme#GetWarningCount()
   let l:all_non_errors = l:counts.total - l:all_errors
 
   return all_non_errors > 0 ? printf(' %dw ', all_non_errors) : ''
@@ -116,6 +117,8 @@ highlight BufTabLineActive cterm=None ctermbg=102 ctermfg=0
 
 " ALE hightlight
 highlight ALEError ctermbg=none cterm=underline ctermfg=9
+highlight link YcmErrorSection ALEError
+highlight link YcmErrorSign ALEErrorSign
 
 " Ctrl-P
 let g:ctrlp_map = '<leader>t'
@@ -126,6 +129,11 @@ let g:ctrlp_match_current_file = 1
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 
 set wildignore+=**/node_modules/**,**/bower_components/**,**/liquibase/**,**/__pycache__/**,**/*.pyc,**/dist/**
+
+" YCM
+let g:ycm_error_symbol = g:ale_sign_error
+let g:ycm_warning_symbol = g:ale_sign_warning
+let g:ycm_show_diagnostics_ui = 1
 
 
 " Handy stuff
@@ -191,11 +199,10 @@ if !exists("g:ycm_semantic_triggers")
   let g:ycm_semantic_triggers = {}
 endif
 let g:ycm_semantic_triggers['typescript'] = ['.']
-autocmd FileType typescript nmap <buffer> <leader>f :!tslint --fix %<CR>:e<CR>
+autocmd FileType typescript nmap <buffer> <leader>f :ALEFix<CR>
 autocmd FileType typescript nmap <buffer> <leader>q :YcmCompleter GetType<CR>
 autocmd FileType typescript nmap <buffer> <leader>r :YcmCompleter RefactorRename <C-r><C-w>
-let g:ale_linters = {
-\   'typescript': ['tsserver', 'tslint'],
-\}
+let g:ale_linters = { 'typescript': ['tslint'] }
+let g:ale_fixers = { 'typescript': ['tslint'] }
 
 source ~/.dotfiles/local.vim
