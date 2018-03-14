@@ -202,6 +202,8 @@ let g:ycm_semantic_triggers['typescript'] = ['.']
 autocmd FileType typescript nmap <buffer> <leader>f :ALEFix<CR>
 autocmd FileType typescript nmap <buffer> <leader>q :YcmCompleter GetType<CR>
 autocmd FileType typescript nmap <buffer> <leader>r :YcmCompleter RefactorRename <C-r><C-w>
+autocmd FileType typescript nmap <buffer> gd :YcmCompleter GoToDefinition <CR>
+autocmd FileType typescript nmap <buffer> <leader>e :YcmShowDetailedDiagnostic<CR>
 let g:ale_linters = { 'typescript': ['tslint'] }
 let g:ale_fixers = { 'typescript': ['tslint'] }
 
