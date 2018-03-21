@@ -1,5 +1,6 @@
 execute pathogen#infect()
 
+language en_US
 syntax on
 
 filetype plugin on
@@ -28,7 +29,6 @@ set directory^=$HOME/.vim/tmp//
 
 
 " Look & feel
-let g:aldmeris_termcolors = "tango"
 colorscheme aldmeris
 
 set listchars=tab:»\ ,trail:·,space:·
@@ -94,8 +94,6 @@ let g:ale_sign_warning = '⚠'
 let g:ale_sign_error = '×'
 let g:ale_lint_delay = 500
 
-highlight ALEErrorSign ctermfg=1 ctermbg=0 cterm=bold
-highlight ALEWarningSign ctermfg=3 ctermbg=0
 nnoremap <leader>e :ALENextWrap<cr>
 nnoremap <leader>E :ALEPreviousWrap<cr>
 
@@ -113,12 +111,6 @@ nnoremap <silent> <C-Q> :bd<CR>
 let g:buftabline_indicators = 1
 let g:buftabline_show = 1
 
-highlight BufTabLineActive cterm=None ctermbg=102 ctermfg=0
-
-" ALE hightlight
-highlight ALEError ctermbg=none cterm=underline ctermfg=9
-highlight link YcmErrorSection ALEError
-highlight link YcmErrorSign ALEErrorSign
 
 " Ctrl-P
 let g:ctrlp_map = '<leader>t'
@@ -133,7 +125,7 @@ set wildignore+=**/node_modules/**,**/bower_components/**,**/liquibase/**,**/__p
 " YCM
 let g:ycm_error_symbol = g:ale_sign_error
 let g:ycm_warning_symbol = g:ale_sign_warning
-let g:ycm_show_diagnostics_ui = 1
+let g:ycm_show_diagnostics_ui = 0
 
 
 " Handy stuff
@@ -203,8 +195,8 @@ autocmd FileType typescript nmap <buffer> <leader>f :ALEFix<CR>
 autocmd FileType typescript nmap <buffer> <leader>q :YcmCompleter GetType<CR>
 autocmd FileType typescript nmap <buffer> <leader>r :YcmCompleter RefactorRename <C-r><C-w>
 autocmd FileType typescript nmap <buffer> gd :YcmCompleter GoToDefinition <CR>
-autocmd FileType typescript nmap <buffer> <leader>e :YcmShowDetailedDiagnostic<CR>
-let g:ale_linters = { 'typescript': ['tslint'] }
+autocmd FileType typescript nmap <buffer> <leader>d :YcmShowDetailedDiagnostic<CR>
+let g:ale_linters = { 'typescript': ['tslint', 'tsserver'] }
 let g:ale_fixers = { 'typescript': ['tslint'] }
 
 source ~/.dotfiles/local.vim
