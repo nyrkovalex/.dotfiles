@@ -29,6 +29,7 @@ set directory^=$HOME/.vim/tmp//
 
 
 " Look & feel
+let g:aldmeris_termcolors = "tango"
 colorscheme aldmeris
 
 set listchars=tab:»\ ,trail:·,space:·
