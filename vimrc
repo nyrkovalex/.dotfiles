@@ -1,10 +1,48 @@
-execute pathogen#infect()
+if has("gui_running")
+  if has("gui_gtk2")
+    set guifont=Inconsolata\ 12
+  elseif has("gui_macvim")
+    set guifont=Menlo\ Regular:h14
+  elseif has("gui_win32")
+    set guifont=Consolas:h12
+  endif
+endif
 
-language en_US
-syntax on
+if &compatible
+  set nocompatible
+endif
+" Add the dein installation directory into runtimepath
+set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
 
-filetype plugin on
-filetype indent on
+if dein#load_state('~/.cache/dein')
+  call dein#begin('~/.cache/dein')
+
+  call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
+  call dein#add('Shougo/deoplete.nvim')
+  call dein#add('Shougo/denite.nvim')
+  if !has('nvim')
+    call dein#add('roxma/nvim-yarp')
+    call dein#add('roxma/vim-hug-neovim-rpc')
+  endif
+
+  call dein#add('kien/ctrlp.vim')
+  call dein#add('nyrkovalex/vim-aldmeris')
+  call dein#add('sheerun/vim-polyglot')
+  call dein#add('w0rp/ale')
+  call dein#add('mhartington/nvim-typescript', {'build': './install.sh'})
+  call dein#add('tpope/vim-fugitive')
+  call dein#add('airblade/vim-gitgutter')
+  call dein#add('ap/vim-buftabline')
+  call dein#add('altercation/vim-colors-solarized')
+  call dein#add('mileszs/ack.vim')
+  call dein#add('moll/vim-node')
+
+  call dein#end()
+  call dein#save_state()
+endif
+
+filetype plugin indent on
+syntax enable
 
 set smartindent
 set shiftwidth=2
@@ -24,13 +62,17 @@ set diffopt+=vertical
 set clipboard=unnamedplus
 set backupcopy=yes
 set noswapfile
+set completeopt=menu
 
 set directory^=$HOME/.vim/tmp//
 
-
 " Look & feel
-let g:aldmeris_termcolors = "tango"
+"set termguicolors
+let g:aldmeris_transparent = 1
+set bg=dark
 colorscheme aldmeris
+highlight CheckedStatus ctermbg=2
+highlight WarningStatus ctermbg=3 ctermfg=0
 
 set listchars=tab:»\ ,trail:·,space:·
 set list
@@ -38,21 +80,44 @@ set cursorline
 set nowrap
 set number
 set ruler
+set guioptions-=m  "menu bar
+set guioptions-=T  "toolbar
+set guioptions-=r  "scrollbar
 
-set omnifunc=syntaxcomplete#Complete
-set completeopt-=preview
-
+" Strip trailing whitespaces
+autocmd BufWritePre * :%s/\s\+$//e
 
 " Statusline
+function! LinterOk() abort
+  let l:counts = ale#statusline#Count(bufnr(''))
+  return l:counts.total == 0 ? ' ✓ ' : ''
+endfunction
+
+function! LinterErrors() abort
+  let l:counts = ale#statusline#Count(bufnr(''))
+
+  let l:all_errors = l:counts.error + l:counts.style_error
+
+  return all_errors > 0 ? printf(' %d× ', all_errors) : ''
+endfunction
+
+function! LinterWarnings() abort
+  let l:counts = ale#statusline#Count(bufnr(''))
+
+  let l:all_errors = l:counts.error + l:counts.style_error
+  let l:all_non_errors = l:counts.total - l:all_errors
+
+  return all_non_errors > 0 ? printf(' %d⚠ ', all_non_errors) : ''
+endfunction
+
 function! StatusLine() abort
   let l:lintermsg = '%#CheckedStatus#%{LinterOk()}' . '%#ErrorMsg#%{LinterErrors()}' . '%#WarningStatus#%{LinterWarnings()}%*'
-  return '%f %m ' . l:lintermsg . '%= %#GitStatus#|%{fugitive#head(8)}|%* %l:%v'
+  return '%t %m ' . l:lintermsg . '%= %#GitStatus#|%{fugitive#head(8)}|%* %l:%v'
 endfunction
 
 set statusline=%!StatusLine()
 
-
-" split navigation
+" Split navigation
 nmap <silent> <C-k> :wincmd k<CR>
 nmap <silent> <C-J> :wincmd j<CR>
 nmap <silent> <C-h> :wincmd h<CR>
@@ -62,74 +127,6 @@ tnoremap <C-j> <C-\><C-n><C-w>j
 tnoremap <C-k> <C-\><C-n><C-w>k
 tnoremap <C-l> <C-\><C-n><C-w>l
 
-
-" ALE
-highlight CheckedStatus ctermbg=2
-highlight WarningStatus ctermbg=3 ctermfg=0
-
-function! LinterOk() abort
-  let l:counts = ale#statusline#Count(bufnr(''))
-  let l:total = l:counts.total + youcompleteme#GetErrorCount() + youcompleteme#GetWarningCount()
-  return l:total == 0 ? ' ✓ ' : ''
-endfunction
-
-function! LinterErrors() abort
-  let l:counts = ale#statusline#Count(bufnr(''))
-
-  let l:all_errors = l:counts.error + l:counts.style_error + youcompleteme#GetErrorCount()
-
-  return all_errors > 0 ? printf(' %de ', all_errors) : ''
-endfunction
-
-function! LinterWarnings() abort
-  let l:counts = ale#statusline#Count(bufnr(''))
-
-  let l:all_errors = l:counts.error + l:counts.style_error + youcompleteme#GetWarningCount()
-  let l:all_non_errors = l:counts.total - l:all_errors
-
-  return all_non_errors > 0 ? printf(' %dw ', all_non_errors) : ''
-endfunction
-
-let g:ale_sign_column_always = 1
-let g:ale_sign_warning = '⚠'
-let g:ale_sign_error = '×'
-let g:ale_lint_delay = 500
-
-nnoremap <leader>e :ALENextWrap<cr>
-nnoremap <leader>E :ALEPreviousWrap<cr>
-
-
-" Ack grep
-let g:ackprg = 'ag --vimgrep'
-
-
-" buftabline
-set hidden
-nnoremap <silent> <C-N> :bnext<CR>
-nnoremap <silent> <C-P> :bprev<CR>
-nnoremap <silent> <C-Q> :bd<CR>
-
-let g:buftabline_indicators = 1
-let g:buftabline_show = 1
-
-
-" Ctrl-P
-let g:ctrlp_map = '<leader>t'
-let g:ctrlp_working_path_mode = ''
-let g:ctrlp_show_hidden = 1
-let g:ctrlp_match_current_file = 1
-" exclude gitignore files
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
-
-set wildignore+=**/node_modules/**,**/bower_components/**,**/liquibase/**,**/__pycache__/**,**/*.pyc,**/dist/**
-
-" YCM
-let g:ycm_error_symbol = g:ale_sign_error
-let g:ycm_warning_symbol = g:ale_sign_warning
-let g:ycm_show_diagnostics_ui = 0
-
-
-" Handy stuff
 " Move lines
 nnoremap <A-j> :m .+1<CR>==
 nnoremap <A-k> :m .-2<CR>==
@@ -138,66 +135,52 @@ inoremap <A-k> <Esc>:m .-2<CR>==gi
 vnoremap <A-j> :m '>+1<CR>gv=gv
 vnoremap <A-k> :m '<-2<CR>gv=gv
 
-" Copy to clipboard
-vmap <C-C> "+y
-nmap <C-C> "+yy
-vmap <leader>d "_d
-nmap <leader>d "_d
+" Completion
+inoremap <C-Space> <C-x><C-o>
+inoremap <C-@> <C-x><C-o>
+let g:deoplete#enable_at_startup = 1
 
-" Rename macro
-nnoremap <leader>r :%s/\<<C-r><C-w>\>/<C-r><C-w>/gc<left><left><left>
+" Ack grep
+let g:ackprg = 'ag --vimgrep'
 
-" Strip trailing whitespaces
-autocmd BufWritePre * :%s/\s\+$//e
+" Buftabline
+set hidden
+nnoremap <silent> <C-N> :bnext<CR>
+nnoremap <silent> <C-P> :bprev<CR>
+nnoremap <silent> <C-Q> :bd<CR>
 
-"Timestamp shortcuts
-nnoremap <A-t> a<C-R>=strftime("%d/%m/%y %H:%M:%S")<CR><Esc>
-inoremap <A-t> <C-R>=strftime("%d/%m/%y %H:%M:%S")<CR>
+let g:buftabline_indicators = 1
+let g:buftabline_show = 1
 
+" Ale
+let g:ale_sign_column_always = 1
 
-" Languages
-" JavaScript
-autocmd User Node
-  \ if &filetype == "javascript" |
-  \   nmap <buffer> <C-w>f <Plug>NodeVSplitGotoFile |
-  \   nmap <buffer> <C-w><C-f> <Plug>NodeVSplitGotoFile |
-  \ endif
+let g:ale_sign_column_always = 1
+let g:ale_sign_warning = '⚠'
+let g:ale_sign_error = '×'
+let g:ale_lint_delay = 500
 
-autocmd FileType javascript nnoremap <buffer> <leader>f :!eslint --fix %<CR>:e<CR>
-
-" Python
-autocmd FileType python setlocal sw=4 sts=4
-nmap <A-i> :!isort %<CR> :e<CR>
-
-" Go
-let g:ycm_gocode_binary_path = "$GOPATH/bin/gocode"
-autocmd FileType go nnoremap <A-t> :GoTest<CR>
-autocmd FileType go inoremap <A-t> :GoTest<CR>
-autocmd FileType go nnoremap <leader>r :GoRename<CR>
-
-" Elm
-" Disable elm-vim keybindings
-let g:elm_setup_keybindings = 0
-
-let g:ycm_semantic_triggers = {
-  \ 'elm' : ['.'],
-  \ }
-
-autocmd FileType elm nmap <leader>f :ElmFormat<CR>
-autocmd FileType elm nmap <leader>e :ElmErrorDetail<CR>
-autocmd BufWritePre *.elm :ElmFormat
-
-" Typescript
-if !exists("g:ycm_semantic_triggers")
-  let g:ycm_semantic_triggers = {}
-endif
-let g:ycm_semantic_triggers['typescript'] = ['.']
-autocmd FileType typescript nmap <buffer> <leader>f :ALEFix<CR>
-autocmd FileType typescript nmap <buffer> <leader>q :YcmCompleter GetType<CR>
-autocmd FileType typescript nmap <buffer> <leader>r :YcmCompleter RefactorRename <C-r><C-w>
-autocmd FileType typescript nmap <buffer> gd :YcmCompleter GoToDefinition <CR>
-autocmd FileType typescript nmap <buffer> <leader>d :YcmShowDetailedDiagnostic<CR>
-let g:ale_linters = { 'typescript': ['tslint', 'tsserver'] }
+nmap <leader>e :ALENextWrap<cr>
+nmap <leader>E :ALEPreviousWrap<cr>
+let g:ale_linters = { 'typescript': ['tslint', 'tsserver'], 'html': [] }
 let g:ale_fixers = { 'typescript': ['tslint'] }
 
-source ~/.dotfiles/local.vim
+" Rename macro
+nmap <leader>r :%s/\<<C-r><C-w>\>/<C-r><C-w>/gc<left><left><left>
+
+" Ctrl-p
+let g:ctrlp_map = '<leader>t'
+let g:ctrlp_working_path_mode = ''
+let g:ctrlp_show_hidden = 1
+let g:ctrlp_match_current_file = 1
+" exclude gitignore files
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+
+" TypeScript
+let g:nvim_typescript#diagnostics_enable = 0
+let g:typescript_opfirst='\%([<>=,?^%|*/&]\|\([-:+]\)\1\@!\|!=\|in\%(stanceof\)\=\>\)'
+autocmd FileType typescript nmap <buffer> gd :TSDef<CR>zz
+autocmd FileType typescript nmap <buffer> <leader>r :TSRename<CR>
+autocmd FileType typescript nmap <buffer> <leader>f :ALEFix<CR>
+autocmd FileType typescript nmap <buffer> <leader>F :TSImport<CR>
+
