@@ -29,8 +29,6 @@ if dein#load_state('~/.cache/dein')
   call dein#add('nyrkovalex/vim-aldmeris')
   call dein#add('sheerun/vim-polyglot')
   call dein#add('w0rp/ale')
-  call dein#add('HerringtonDarkholme/yats.vim')
-  call dein#add('mhartington/nvim-typescript', {'build': './install.sh'})
   call dein#add('tpope/vim-fugitive')
   call dein#add('airblade/vim-gitgutter')
   call dein#add('ap/vim-buftabline')
@@ -64,6 +62,7 @@ set clipboard=unnamedplus
 set backupcopy=yes
 set noswapfile
 set completeopt=menu
+set ut=2000
 
 set directory^=$HOME/.vim/tmp//
 
@@ -163,7 +162,7 @@ let g:ale_lint_delay = 500
 
 nmap <leader>e :ALENextWrap<cr>
 nmap <leader>E :ALEPreviousWrap<cr>
-let g:ale_linters = { 'typescript': ['tslint'], 'html': [] }
+let g:ale_linters = { 'typescript': ['tslint', 'tsserver'], 'html': [] }
 let g:ale_fixers = { 'typescript': ['tslint'] }
 
 " Rename macro
@@ -179,41 +178,10 @@ let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standar
 
 " TypeScript
 let g:typescript_opfirst='\%([<>=,?^%|*/&]\|\([-:+]\)\1\@!\|!=\|in\%(stanceof\)\=\>\)'
-autocmd FileType typescript nmap <buffer> gd :TSDef<CR>zz
-autocmd FileType typescript nmap <buffer> <leader>d :TSDoc<CR>
-autocmd FileType typescript nmap <buffer> <leader>r :TSRename<CR>
+autocmd FileType typescript nmap <buffer> gd :ALEGoToDefinition<CR>zz
+autocmd FileType typescript nmap <buffer> <leader>d :ALEHover<CR>
+autocmd FileType typescript nmap <buffer> <leader>r :ALERename<CR>
 autocmd FileType typescript nmap <buffer> <leader>f :ALEFix<CR>
-autocmd FileType typescript nmap <buffer> <leader>F :TSImport<CR>
-
-let g:nvim_typescript#default_signs =
-      \[
-      \{
-      \  'TSerror': {
-      \   'texthl': 'ALEError',
-      \   'signText': '×',
-      \   'signTexthl': 'ALEErrorSign'
-      \  }
-      \},
-      \{
-      \  'TSwarning': {
-      \   'texthl': 'ALEWarning',
-      \   'signText': '⚠',
-      \   'signTexthl': 'ALEWarningSign'
-      \  }
-      \},
-      \{
-      \  'TSsuggestion': {
-      \   'texthl': 'ALEInfo',
-      \   'signText': '•',
-      \   'signTexthl': 'ALEInfoSign'
-      \   }
-      \},
-      \{
-      \  'TShint': {
-      \   'texthl': 'ALEInfo',
-      \   'signText': '?',
-      \   'signTexthl': 'ALEInfoSign'
-      \   }
-      \}
-      \]
+autocmd FileType typescript nmap <buffer> <leader>F :ALEImport<CR>
+autocmd BufNewFile,BufRead *.d.ts ALEDisableBuffer
 
