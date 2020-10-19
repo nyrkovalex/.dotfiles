@@ -180,6 +180,7 @@ let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standar
 let g:nvim_typescript#diagnostics_enable = 0
 let g:typescript_opfirst='\%([<>=,?^%|*/&]\|\([-:+]\)\1\@!\|!=\|in\%(stanceof\)\=\>\)'
 autocmd FileType typescript nmap <buffer> gd :TSDef<CR>zz
+autocmd FileType typescript nmap <buffer> <leader>d :TSDoc<CR>
 autocmd FileType typescript nmap <buffer> <leader>r :TSRename<CR>
 autocmd FileType typescript nmap <buffer> <leader>f :ALEFix<CR>
 autocmd FileType typescript nmap <buffer> <leader>F :TSImport<CR>
