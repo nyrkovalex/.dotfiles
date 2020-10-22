@@ -18,7 +18,8 @@ if dein#load_state('~/.cache/dein')
   call dein#begin('~/.cache/dein')
 
   call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
-  call dein#add('Shougo/deoplete.nvim')
+  " newer version do not work with ALE
+  call dein#add('Shougo/deoplete.nvim', { 'rev': '7c781f4a887719e1785b3f0c4d8087d99d201e06' })
   call dein#add('Shougo/denite.nvim')
   if !has('nvim')
     call dein#add('roxma/nvim-yarp')
@@ -28,7 +29,7 @@ if dein#load_state('~/.cache/dein')
   call dein#add('kien/ctrlp.vim')
   call dein#add('nyrkovalex/vim-aldmeris')
   call dein#add('sheerun/vim-polyglot')
-  call dein#add('w0rp/ale')
+  call dein#add('dense-analysis/ale')
   call dein#add('tpope/vim-fugitive')
   call dein#add('airblade/vim-gitgutter')
   call dein#add('ap/vim-buftabline')
@@ -67,7 +68,7 @@ set ut=2000
 set directory^=$HOME/.vim/tmp//
 
 " Look & feel
-"set termguicolors
+" set termguicolors
 let g:aldmeris_transparent = 1
 set bg=dark
 colorscheme aldmeris
@@ -164,6 +165,8 @@ nmap <leader>e :ALENextWrap<cr>
 nmap <leader>E :ALEPreviousWrap<cr>
 let g:ale_linters = { 'typescript': ['tslint', 'tsserver'], 'html': [] }
 let g:ale_fixers = { 'typescript': ['tslint'] }
+let g:ale_completion_autoimport = 1
+set omnifunc=ale#completion#OmniFunc
 
 " Rename macro
 nmap <leader>r :%s/\<<C-r><C-w>\>/<C-r><C-w>/gc<left><left><left>
