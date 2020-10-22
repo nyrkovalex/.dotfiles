@@ -140,6 +140,7 @@ vnoremap <A-k> :m '<-2<CR>gv=gv
 inoremap <C-Space> <C-x><C-o>
 inoremap <C-@> <C-x><C-o>
 let g:deoplete#enable_at_startup = 1
+call deoplete#custom#source('_', 'max_menu_width', 80)
 
 " Ack grep
 let g:ackprg = 'ag --vimgrep'
@@ -172,6 +173,9 @@ set omnifunc=ale#completion#OmniFunc
 
 " Rename macro
 nmap <leader>r :%s/\<<C-r><C-w>\>/<C-r><C-w>/gc<left><left><left>
+
+" Insert closing tag macro
+nmap <leader>c yypa/<Esc>$
 
 " Ctrl-p
 let g:ctrlp_map = '<leader>t'
