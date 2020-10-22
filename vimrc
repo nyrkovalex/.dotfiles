@@ -160,12 +160,14 @@ let g:ale_sign_column_always = 1
 let g:ale_sign_warning = '⚠'
 let g:ale_sign_error = '×'
 let g:ale_lint_delay = 500
+let g:ale_fix_on_save = 1
 
 nmap <leader>e :ALENextWrap<cr>
 nmap <leader>E :ALEPreviousWrap<cr>
 let g:ale_linters = { 'typescript': ['tslint', 'tsserver'], 'html': [] }
 let g:ale_fixers = { 'typescript': ['tslint'] }
 let g:ale_completion_autoimport = 1
+let g:ale_completion_max_suggestions = 15
 set omnifunc=ale#completion#OmniFunc
 
 " Rename macro
