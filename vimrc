@@ -63,7 +63,7 @@ set clipboard=unnamedplus
 set backupcopy=yes
 set noswapfile
 set completeopt=menu
-set ut=2000
+set updatetime=300
 
 set directory^=$HOME/.vim/tmp//
 
